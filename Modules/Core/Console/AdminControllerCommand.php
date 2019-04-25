@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Nwidart\Modules\Support\Stub;
 use Nwidart\Modules\Traits\ModuleCommandTrait;
 use Nwidart\Modules\Commands\GeneratorCommand;
+use Illuminate\Database\Eloquent\Model;
 
 class AdminControllerCommand extends GeneratorCommand
 {
@@ -31,7 +32,7 @@ class AdminControllerCommand extends GeneratorCommand
                             {controller : The name of the admin controller class.}
                             {module : The name of module will be used.}
                             {--style=resource : The style of controller.}
-                            {--model : The model of controller.}
+                            {--model=}
                             {--force : Overwrite any existing files.}';
 
 
@@ -55,7 +56,6 @@ class AdminControllerCommand extends GeneratorCommand
      */
     public function handle()
     {
-        $modelName = $this->option('model');
 
         if (!$this->modelExists()) {
             $this->error('Model does not exists !');
@@ -63,7 +63,7 @@ class AdminControllerCommand extends GeneratorCommand
             return false;
         }
 
-        $this->generator = new ResourceGenerator($modelName);
+        $this->generator = new ResourceGenerator($this->getModelName());
 
         parent::handle();
 
@@ -78,6 +78,7 @@ class AdminControllerCommand extends GeneratorCommand
     protected function modelExists()
     {
         $model = $this->option('model');
+
 
         if (empty($model)) {
             return true;
@@ -121,7 +122,7 @@ class AdminControllerCommand extends GeneratorCommand
             'NAME'             => $this->getModuleName(),
             'STUDLY_NAME'      => $module->getStudlyName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
-            'MODEL'            => $this->getModelName(),
+            'MODEL'            => str_replace($this->getModelName(), "", $this->getModelName()),
             'LOWER_MODEL'      => $this->getLowerModelName(),
             'PLURAL_MODEL'     => $this->getPluralModelName(),
             "SHOW"             => $this->indentCodes($this->generator->generateShow()),

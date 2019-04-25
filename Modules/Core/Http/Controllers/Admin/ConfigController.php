@@ -1,8 +1,8 @@
 <?php
 
-namespace $CLASS_NAMESPACE$;
+namespace Modules\Core\Http\Controllers\Admin;
 
-use Modules\$MODULE$\Entities\$MODEL$;
+use Modules\Core\Entities\Modules\Core\Entities\Config;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -79,9 +79,12 @@ class DummyClass extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new $MODEL$);
+        $grid = new Grid(new Modules\Core\Entities\Config);
 
-$GRID$
+        $grid->module('Module');
+        $grid->key('Key');
+        $grid->value('Value');
+        $grid->type('Type');
 
         return $grid;
     }
@@ -94,9 +97,12 @@ $GRID$
      */
     protected function detail($id)
     {
-        $show = new Show($MODEL$::findOrFail($id));
+        $show = new Show(Modules\Core\Entities\Config::findOrFail($id));
 
-$SHOW$
+        $show->module('Module');
+        $show->key('Key');
+        $show->value('Value');
+        $show->type('Type');
 
         return $show;
     }
@@ -108,9 +114,12 @@ $SHOW$
      */
     protected function form()
     {
-        $form = new Form(new $MODEL$);
+        $form = new Form(new Modules\Core\Entities\Config);
 
-$FORM$
+        $form->text('module', 'Module');
+        $form->text('key', 'Key');
+        $form->textarea('value', 'Value');
+        $form->text('type', 'Type');
 
         return $form;
     }
