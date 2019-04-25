@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Core\Providers;
+namespace Modules\$MODULE_NAME$\Providers;
 
 use Modules\Core\Providers\CoreRouteServiceProvider;
 
@@ -11,7 +11,7 @@ class RouteServiceProvider extends CoreRouteServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Modules\Ids\Http\Controllers';
+    protected $namespace = 'Modules\$MODULE_NAME$\Http\Controllers';
 
     /**
      * 前台路由，无前台路由返回false

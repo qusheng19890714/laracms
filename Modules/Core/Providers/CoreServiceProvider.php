@@ -4,6 +4,7 @@ namespace Modules\Core\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Core\Providers\RouteServiceProvider;
 
 class CoreServiceProvider extends ServiceProvider
 {
@@ -12,6 +13,7 @@ class CoreServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
         $this->registerTranslations();
@@ -28,7 +30,12 @@ class CoreServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //注册路由
         $this->app->register(RouteServiceProvider::class);
+
+        //注册命令行
+        $this->registerCommands();
+
     }
 
     /**
@@ -102,5 +109,19 @@ class CoreServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
+    }
+
+    /**
+     * 注册命令行
+     *
+     * @return void
+     */
+    public function registerCommands()
+    {
+        $this->commands([
+            \Modules\Core\Console\CreateCommand::class,
+            \Modules\Core\Console\AdminControllerCommand::class,
+            \Modules\Core\Console\FrontControllerCommand::class,
+        ]);
     }
 }

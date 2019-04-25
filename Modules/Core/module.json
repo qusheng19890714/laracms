@@ -2,9 +2,12 @@
     "name": "Core",
     "alias": "core",
     "description": "",
+    "title" : "核心模块",
+    "description" : "laracms核心模块",
     "keywords": [],
     "active": 1,
     "order": 0,
+    "author" :  "allen qu",
     "providers": [
         "Modules\\Core\\Providers\\CoreServiceProvider"
     ],
