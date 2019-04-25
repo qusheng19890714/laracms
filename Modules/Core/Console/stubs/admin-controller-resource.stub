@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class DummyClass extends Controller
+class $CLASS$ extends Controller
 {
     use HasResourceActions;
 

@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Http\Controllers\Admin;
 
-use Modules\Core\Entities\Modules\Core\Entities\Config;
+use Modules\Core\Entities\Config;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class DummyClass extends Controller
+class ConfigController extends Controller
 {
     use HasResourceActions;
 
@@ -22,6 +22,7 @@ class DummyClass extends Controller
      */
     public function index(Content $content)
     {
+
         return $content
             ->header('Index')
             ->description('description')
@@ -79,9 +80,9 @@ class DummyClass extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Modules\Core\Entities\Config);
+        $grid = new Grid(new Config);
 
-        $grid->module('Module');
+        $grid->text('Module');
         $grid->key('Key');
         $grid->value('Value');
         $grid->type('Type');
@@ -97,9 +98,9 @@ class DummyClass extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(Modules\Core\Entities\Config::findOrFail($id));
+        $show = new Show(Config::findOrFail($id));
 
-        $show->module('Module');
+        $show->text('Module');
         $show->key('Key');
         $show->value('Value');
         $show->type('Type');
@@ -114,7 +115,7 @@ class DummyClass extends Controller
      */
     protected function form()
     {
-        $form = new Form(new Modules\Core\Entities\Config);
+        $form = new Form(new Config);
 
         $form->text('module', 'Module');
         $form->text('key', 'Key');

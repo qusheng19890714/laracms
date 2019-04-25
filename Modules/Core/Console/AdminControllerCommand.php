@@ -110,6 +110,10 @@ class AdminControllerCommand extends GeneratorCommand
         $module = $this->laravel['modules']->findOrFail($this->getModuleName());
         $path   = $this->laravel['modules']->getModulePath('Core');
 
+        $getModel = explode("\\", $this->option('model'));
+
+        $modelName = last($getModel);
+
         $stub = new Stub($this->getStubName(), [
             'MODULENAME'       => $module->getStudlyName(),
             'CONTROLLERNAME'   => $this->getControllerName(),
@@ -122,7 +126,7 @@ class AdminControllerCommand extends GeneratorCommand
             'NAME'             => $this->getModuleName(),
             'STUDLY_NAME'      => $module->getStudlyName(),
             'MODULE_NAMESPACE' => $this->laravel['modules']->config('namespace'),
-            'MODEL'            => str_replace($this->getModelName(), "", $this->getModelName()),
+            'MODEL'            => $modelName,
             'LOWER_MODEL'      => $this->getLowerModelName(),
             'PLURAL_MODEL'     => $this->getPluralModelName(),
             "SHOW"             => $this->indentCodes($this->generator->generateShow()),

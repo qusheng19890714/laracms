@@ -11,7 +11,7 @@ class RouteServiceProvider extends CoreRouteServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Modules\Ids\Http\Controllers';
+    protected $namespace = 'Modules\Core\Http\Controllers';
 
     /**
      * 前台路由，无前台路由返回false

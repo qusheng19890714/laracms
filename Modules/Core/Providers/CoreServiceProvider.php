@@ -13,9 +13,22 @@ class CoreServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    /**
+     * 中间件
+     *
+     * @var array
+     */
+    protected $middlewares = [
+
+        'module' => 'ModuleMiddleware',
+
+    ];
 
     public function boot()
     {
+        // 注册中间件
+        $this->registerMiddleware();
+
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerViews();
@@ -123,5 +136,18 @@ class CoreServiceProvider extends ServiceProvider
             \Modules\Core\Console\AdminControllerCommand::class,
             \Modules\Core\Console\FrontControllerCommand::class,
         ]);
+    }
+
+    /**
+     * 注册中间件
+     *
+     * @param  Router $router
+     * @return void
+     */
+    public function registerMiddleware()
+    {
+        foreach ($this->middlewares as $name => $middleware) {
+            $this->app['router']->aliasMiddleware($name, "Modules\\Core\\Http\\Middleware\\{$middleware}");
+        }
     }
 }
