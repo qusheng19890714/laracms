@@ -1,17 +1,19 @@
 {
     "name": "Core",
     "alias": "core",
-    "description": "",
-    "title" : "核心模块",
-    "description" : "laracms核心模块",
+    "description": "laracms\u6838\u5fc3\u6a21\u5757",
+    "title": "\u6838\u5fc3\u6a21\u5757",
     "keywords": [],
     "active": 1,
     "order": 0,
-    "author" :  "allen qu",
+    "author": "allen qu",
     "providers": [
         "Modules\\Core\\Providers\\CoreServiceProvider"
     ],
-    "aliases": {},
-    "files": [],
-    "requires": []
+    "aliases": [],
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "installed": 1
 }

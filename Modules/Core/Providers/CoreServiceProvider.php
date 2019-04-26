@@ -135,6 +135,7 @@ class CoreServiceProvider extends ServiceProvider
             \Modules\Core\Console\CreateCommand::class,
             \Modules\Core\Console\AdminControllerCommand::class,
             \Modules\Core\Console\FrontControllerCommand::class,
+            \Modules\Core\Console\RebootCommand::class,
         ]);
     }
 

@@ -67,7 +67,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Shanghai'),
+    'installed'=> env('APP_INSTALLED', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'zh-CN'),
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +179,12 @@ return [
         //Nwidart 模块化插件
         Nwidart\Modules\LaravelModulesServiceProvider::class,
 
+        Sven\FlexEnv\FlexEnvServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
+        //安装provider
+        App\Providers\InstallServiceProvider::class,
+
     ],
 
     /*
@@ -229,6 +236,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Module' => Nwidart\Modules\Facades\Module::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

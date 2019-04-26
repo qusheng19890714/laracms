@@ -1,0 +1,99 @@
+/*!
+ * Global css for installer
+ * Copyright 2011-2017 The zotop team
+ */
+
+/*导航条样式*/
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-button{display:none;}
+::-webkit-scrollbar-track, ::-webkit-scrollbar-track-piece{background:-webkit-gradient(linear,left);width:6px;height:6px;}
+::-webkit-scrollbar-thumb{border-width:0 0px;border-style:solid;border-color:#fefefe;border-radius:4px;background:#fff;background:rgba(255,255,255,0.3);}
+::-webkit-scrollbar-thumb:horizontal{border-width:0px 0;border-style:solid;border-color:#fefefe;border-radius:4px;background:#fff;background:rgba(255,255,255,0.3);}
+::-webkit-scrollbar-thumb:hover{background:#fff;background:rgba(255,255,255,0.6);}
+::-webkit-scrollbar-thumb:active{background:#fff;background:rgba(255,255,255,0.6);}
+
+::selection {background:#0072C6;color:#fff;}
+
+html,body {width:100%;height:100%;overflow:hidden;padding:0;margin:0;color:#fff;}
+body {font-family:"Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;}
+
+a{color:#0072c6;}
+a:hover{color:#0064ae;outline:0 none;}
+a.disabled,a[disabled]{cursor:not-allowed;color:#999;}
+
+.full-width{width:100%;}    
+.full-height{height:100%;}
+
+.pos-s{position:static;}
+.pos-r{position:relative;}
+.pos-a{position:absolute;}
+
+.scrollable{overflow:auto;outline:none;}
+.bootstrap-maxlength{font:normal 12px/1 sans-serif!important;padding:0.25rem 0.35rem!important;opacity:0.8;}
+
+.bg-primary{background-color:#0072c6!important;}
+.bg-success{background-color:#00bc3e!important;}
+.bg-info{background-color:#00bcf2!important;}
+.bg-warning{background-color:#ffa42f!important;}
+.bg-transparent{background-color:transparent!important;}
+
+.tooltip{font-family:"Helvetica Neue",Helvetica,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;z-index:99999;}
+.tooltip-inner{padding:0.5rem 1rem;font-size:0.75rem;line-height:150%;text-align:left;max-width:100%;white-space:nowrap;}
+
+.tooltip-error{z-index:10;}
+.tooltip-error .tooltip-inner{background-color:#ff0000;max-width:100%;}
+.tooltip-error.bs-tether-element-attached-top .tooltip-inner::before{border-bottom-color:#ff0000;}
+.tooltip-error.bs-tooltip-auto[x-placement^=bottom] .arrow::before, .tooltip-error.bs-tooltip-bottom .arrow::before{border-bottom-color:#ff0000;}
+
+
+.btn{cursor:pointer;}
+
+.btn-outline{border-color:rgba(255,255,255,.25);}
+.btn-outline:hover,.btn-outline:focus,.btn-outline:active{background:rgba(255,255,255,.15);}
+
+.jumbotron{border-radius:0;margin-bottom:0;}
+.jumbotron h1{font-size:6rem;margin-bottom:1rem;font-weight:400;line-height:1.5;}
+.jumbotron h2{font-size:4rem;margin-bottom:1rem;font-weight:400;line-height:1.5;}
+.jumbotron i.fa-lg{font-size:12rem;}
+.jumbotron p{font-size:1.25rem;margin-bottom:1.5rem;}
+
+.table{margin:0 auto;white-space:nowrap;}
+.table td{padding:1rem;}
+
+.table-sm{width:60%;}
+.table-md{width:80%;}
+.table-lg{width:100%;}  
+
+.header{padding:0;border-bottom:solid 1px rgba(255,255,255,0.1);}
+.footer{padding:1.5rem;border-top:solid 1px rgba(255,255,255,0.1);z-index:9999;}
+.footer .btn{padding:0.5rem 1.5rem;font-size:1rem;line-height:1.5;}
+.main{padding:0 6rem;}
+.main.scrollable{flex:1;}
+
+.form{margin:0 auto;}
+.form-sm{width:60%;}
+.form-md{width:80%;}
+.form-lg{width:100%;}
+.form-title{font-size:2rem;margin:1rem 0;}
+
+.modules{margin:0rem 2rem 2rem 2rem;padding:0.5rem 0.5rem;background:rgba(255,255,255,0.3);}
+.module{padding:0.5rem;margin:0.5rem 0.5rem;width:10rem;display:inline-block;}
+.module-icon{}
+.module-icon img{max-width:100%;width:100%;}
+.module-title{padding:.5rem;}
+
+/*css3 animation*/
+@keyframes wave{0%{transform:translate(-90px,0);}100%{transform:translate(85px,0);}}
+
+/* wave */
+.animation-wave{position:absolute;right:0;bottom:0;left:0;display:block;width:100%;height:3em;z-index:-1000;}
+.animation-wave .parallax>use{animation:wave 12s linear infinite;}
+.animation-wave .parallax>use:nth-child(1){animation-delay:-2s;}
+.animation-wave .parallax>use:nth-child(2){animation-delay:-2s;animation-duration:5s;}
+.animation-wave .parallax>use:nth-child(3){animation-delay:-4s;animation-duration:3s;}
+
+/* 分辨率小于 767px */
+@media (max-width:1400px){
+    html{font-size:14px;} 
+}
+
