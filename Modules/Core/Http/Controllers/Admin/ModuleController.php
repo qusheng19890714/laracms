@@ -90,7 +90,7 @@ class ModuleController extends Controller
         $grid->actions(function($actions){
 
             //核心模块不能安装和卸载
-            //if ($actions->row['sort_name'] != 'Core') {
+            if ($actions->row['sort_name'] != 'Core') {
 
                 $module = module($actions->row['sort_name']);
 
@@ -105,7 +105,7 @@ class ModuleController extends Controller
                     $actions->append(new Uninstall($actions->row['sort_name']));
                 }
 
-            //}
+            }
 
             //屏蔽常规操作(删除, 编辑, 查看)
             $actions->disableDelete();

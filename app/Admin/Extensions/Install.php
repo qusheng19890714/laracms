@@ -3,6 +3,8 @@
 namespace App\Admin\Extensions;
 
 use Encore\Admin\Admin;
+use Encore\Admin\Form\Field\Html;
+use SebastianBergmann\CodeCoverage\Report\Html\HTMLTest;
 
 class Install
 {
@@ -77,7 +79,12 @@ SCRIPT;
     {
         Admin::script($this->script());
 
-        return "<a href='javascript:void(0);' class='module_install' data-name='{$this->name}'><i class='fa fa-download'></i></a>";
+        return <<<HTML
+
+        <a href='javascript:void(0);' class='module_install' data-name='{$this->name}'><i class='fa fa-download'></i></a>
+HTML;
+
+
     }
 
     public function __toString()

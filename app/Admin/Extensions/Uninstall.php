@@ -76,8 +76,10 @@ SCRIPT;
     protected function render()
     {
         Admin::script($this->script());
+        return <<<HTML
+        <a href='javascript:void(0);' class='module_uninstall' data-name='{$this->name}'><i class='fa fa-trash'></i></a>
+HTML;
 
-        return "<a href='javascript:void(0);' class='module_uninstall' data-name='{$this->name}'><i class='fa fa-trash'></i></a>";
     }
 
     public function __toString()
