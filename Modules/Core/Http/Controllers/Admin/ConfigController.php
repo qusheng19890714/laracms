@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Http\Controllers\Admin;
 
-use Modules\Core\Entities\Config;
+use Modules\Core\Entitties\Config;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -80,7 +80,7 @@ class ConfigController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new Config);
+        $grid = new Grid(new Config());
 
         $grid->text('Module');
         $grid->key('Key');

@@ -1,8 +1,8 @@
 {
     "name": "Core",
     "alias": "core",
-    "description": "laracms\u6838\u5fc3\u6a21\u5757",
-    "title": "\u6838\u5fc3\u6a21\u5757",
+    "description": "系统核心功能，包含网站后台、模块、管理员、主题等功能",
+    "title": "核心",
     "keywords": [],
     "active": 1,
     "order": 0,

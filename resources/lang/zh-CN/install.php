@@ -81,7 +81,8 @@ return [
     'database.override'              => '覆盖安装',
     'database.override.confirm'      => '警告：该操作将清空全部数据表，请先备份数据',
 
-    'finished'                       => '恭喜！安装成功',
+    'installed'                      => '恭喜！安装成功',
+
     'finished.description'           => '你现在可以开始享受 :0 带来的全新体验 ',
 
     'site.index'                     => '网站首页',
