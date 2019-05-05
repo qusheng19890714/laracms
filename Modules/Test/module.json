@@ -1,0 +1,22 @@
+{
+    "name": "Test",
+    "alias": "test",
+    "title": "test::test.title",
+    "description": "test::test.description",
+    "keywords": [],
+    "version": "1.0.0",
+    "active": 1,
+    "installed": 1,
+    "order": 10,
+    "author": "allen qu",
+    "email": "318566528@qq.com",
+    "homepage": "http:\/\/www.zotop.com",
+    "providers": [
+        "Modules\\Test\\Providers\\TestServiceProvider",
+        "Modules\\Test\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ]
+}

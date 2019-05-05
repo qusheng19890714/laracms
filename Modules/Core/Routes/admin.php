@@ -9,4 +9,5 @@ $router->group(['prefix' =>'core', 'module'=>'core'], function (Router $router) 
     $router->get('module', 'ModuleController@index')->name('core.module.index');
     $router->post('module/install/{module}', 'ModuleController@install')->name('core.module.install');
     $router->post('module/uninstall/{module}', 'ModuleController@uninstall')->name('core.module.uninstall');
+
 });

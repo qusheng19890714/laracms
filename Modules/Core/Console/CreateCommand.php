@@ -76,8 +76,7 @@ class CreateCommand extends Command
         'routes-console.stub'     => 'Routes/console.php',
         'route-provider.stub'     => 'Providers/RouteServiceProvider.php',
         'lang/en/module.php'      => 'Resources/lang/en/$LOWERCASE_MODULE_NAME$.php',
-        'lang/zh-Hans/module.php' => 'Resources/lang/zh-Hans/$LOWERCASE_MODULE_NAME$.php',
-        'lang/zh-Hant/module.php' => 'Resources/lang/zh-Hant/$LOWERCASE_MODULE_NAME$.php',
+        'lang/zh-CN/module.php'   => 'Resources/lang/zh-CN/$LOWERCASE_MODULE_NAME$.php',
     ];
 
     /**
@@ -110,26 +109,22 @@ class CreateCommand extends Command
     }
 
     /**
-     * Get the console command arguments.
+     * 获取命令行传入的模块名称或者别名
      *
      * @return array
      */
     protected function getArguments()
     {
-        return [
-            ['example', InputArgument::REQUIRED, 'An example argument.'],
-        ];
+        return array(
+            array('name', InputArgument::REQUIRED, 'The module name'),
+        );
     }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
     protected function getOptions()
     {
         return [
-            ['example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null],
+            array('plain', 'p', InputOption::VALUE_NONE, 'Generate a plain module (without some resources).'),
+            array('force', null, InputOption::VALUE_NONE, 'Force the operation to run when module already exist.'),
         ];
     }
 

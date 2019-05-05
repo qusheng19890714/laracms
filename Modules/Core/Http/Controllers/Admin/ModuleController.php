@@ -4,6 +4,7 @@ namespace Modules\Core\Http\Controllers\Admin;
 
 use App\Admin\Extensions\Install;
 use App\Admin\Extensions\Uninstall;
+use Illuminate\Http\Request;
 use Modules\Core\Entities\Module;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -28,54 +29,11 @@ class ModuleController extends Controller
         //dd(Module::hydrate(module()));
 
         return $content
-            ->header('Index')
-            ->description('description')
+            ->header('模块管理')
+            ->breadcrumb(['text'=>'模块列表'])
             ->body($this->grid());
     }
 
-    /**
-     * Show interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function show($id, Content $content)
-    {
-        return $content
-            ->header('Detail')
-            ->description('description')
-            ->body($this->detail($id));
-    }
-
-    /**
-     * Edit interface.
-     *
-     * @param mixed $id
-     * @param Content $content
-     * @return Content
-     */
-    public function edit($id, Content $content)
-    {
-        return $content
-            ->header('Edit')
-            ->description('description')
-            ->body($this->form()->edit($id));
-    }
-
-    /**
-     * Create interface.
-     *
-     * @param Content $content
-     * @return Content
-     */
-    public function create(Content $content)
-    {
-        return $content
-            ->header('Create')
-            ->description('description')
-            ->body($this->form());
-    }
 
     /**
      * Make a grid builder.
@@ -86,6 +44,17 @@ class ModuleController extends Controller
     {
         $grid = new Grid(new Module);
 
+        //禁用创建按钮
+        $grid->disableCreateButton();
+
+        //禁用查询过滤器
+        $grid->disableFilter();
+
+        //禁用行选择checkbox
+        $grid->disableRowSelector();
+
+        //禁用导出数据按钮
+        $grid->disableExport();
 
         $grid->actions(function($actions){
 
@@ -137,20 +106,6 @@ class ModuleController extends Controller
         return $grid;
     }
 
-    /**
-     * Make a show builder.
-     *
-     * @param mixed $id
-     * @return Show
-     */
-    protected function detail($id)
-    {
-        $show = new Show(Module::findOrFail($id));
-
-
-
-        return $show;
-    }
 
     /**
      * Make a form builder.
@@ -161,7 +116,23 @@ class ModuleController extends Controller
     {
         $form = new Form(new Module);
 
+        $form->footer(function ($footer) {
 
+            // 去掉`查看`checkbox
+            $footer->disableViewCheck();
+
+            // 去掉`继续编辑`checkbox
+            $footer->disableEditingCheck();
+
+            // 去掉`继续创建`checkbox
+            $footer->disableCreatingCheck();
+
+        });
+
+        $form->text('title', '模块名称')->rules('required|min:2');
+        $form->text('sort_name', '模块代码')->rules('required|min:2');
+        $form->textarea('description', '模块描述')->rules('required|min:2');
+        $form->text('author', '开发者')->rules('required|min:2');
 
         return $form;
     }
