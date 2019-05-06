@@ -10,6 +10,8 @@ return [
     'name.label'             => '名称',
     'description.label'      => '描述',
     'version.label'          => '版本',
+    'author.label'           => '开发者',
+    'code.label'             => '代码',
 
     'core_operate_forbidden' => '系统核心模块，禁止操作',
 

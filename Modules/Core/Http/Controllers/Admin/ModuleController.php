@@ -29,8 +29,8 @@ class ModuleController extends Controller
         //dd(Module::hydrate(module()));
 
         return $content
-            ->header('模块管理')
-            ->breadcrumb(['text'=>'模块列表'])
+            ->header(trans('core::module.index'))
+            ->breadcrumb(['text'=>trans('core:module.index')])
             ->body($this->grid());
     }
 
@@ -59,19 +59,19 @@ class ModuleController extends Controller
         $grid->actions(function($actions){
 
             //核心模块不能安装和卸载
-            if ($actions->row['sort_name'] != 'Core') {
+            if ($actions->row['code'] != 'Core') {
 
-                $module = module($actions->row['sort_name']);
+                $module = module($actions->row['code']);
 
                 if ($module->installed == 0) {
 
                     //安装
-                    $actions->append(new Install($actions->row['sort_name']));
+                    $actions->append(new Install($actions->row['code']));
 
                 }else {
 
                     //卸载
-                    $actions->append(new Uninstall($actions->row['sort_name']));
+                    $actions->append(new Uninstall($actions->row['code']));
                 }
 
             }
@@ -85,19 +85,19 @@ class ModuleController extends Controller
 
 
 
-        $grid->column('module_title', '名称')->display(function() {
+        $grid->column('module_title', trans('core::module.name.label'))->display(function() {
 
-            return $this->title . ' <span class="text-muted">('.$this->sort_name.')</span>';
+            return $this->title . ' <span class="text-muted">('.$this->code.')</span>';
 
         });
 
-        $grid->installed('是否安装')->display(function($installed) {
+        $grid->installed(trans('core::module.status.label'))->display(function($installed) {
 
-            return $installed ? '<span class="label label-success">是</span>' : '<span class="label label-danger">否</span>';
+            return $installed ? '<span class="label label-success">'.trans('core::module.install').'</span>' : '<span class="label label-danger">'.trans('core::module.uninstall').'</span>';
         });
-        $grid->description('描述');
+        $grid->description(trans('core::module.description.label'));
 
-        $grid->author('开发者')->display(function($author) {
+        $grid->author(trans('core::module.author.label'))->display(function($author) {
 
             return '<span class="label label-primary">'.$author.'</span>';
 
@@ -129,10 +129,10 @@ class ModuleController extends Controller
 
         });
 
-        $form->text('title', '模块名称')->rules('required|min:2');
-        $form->text('sort_name', '模块代码')->rules('required|min:2');
-        $form->textarea('description', '模块描述')->rules('required|min:2');
-        $form->text('author', '开发者')->rules('required|min:2');
+        $form->text('title', trans('core::module.name.label'))->rules('required|min:2');
+        $form->text('code', trans('core::module.code.label'))->rules('required|min:2');
+        $form->textarea('description', trans('core::module.description.label'))->rules('required|min:2');
+        $form->text('author', trans('core::module.author.label'))->rules('required|min:2');
 
         return $form;
     }

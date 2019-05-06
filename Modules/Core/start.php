@@ -95,7 +95,8 @@
 \Nwidart\Modules\Facades\Module::macro('data', function($name, array $args=[], $default=null) {
     list($module, $file) = explode('::', $name);
     $data = static::getFileData($module, "Data/{$file}.php", $args, $default);
-    return \Filter::fire($name, $data, $args, $default);
+    //return \Filter::fire($name, $data, $args, $default);
+    return $data;
 });
 
 /**

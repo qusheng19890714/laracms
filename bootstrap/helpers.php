@@ -276,7 +276,7 @@ if (! function_exists('module')) {
                 // 标题和描述语言化
                 $module->title       = trans($module->title);
                 $module->description = trans($module->description);
-                $module->sort_name   = $module->getName();
+                $module->code        = $module->getName();
                 $module->module_path = $module->getPath();
                 $module->installed   = $module->installed;
                 $module->author      = $module->author;
