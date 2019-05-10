@@ -30,7 +30,7 @@ class ModuleController extends Controller
 
         return $content
             ->header(trans('core::module.index'))
-            ->breadcrumb(['text'=>trans('core:module.index')])
+            ->breadcrumb(['text'=>trans('core::module.index')])
             ->body($this->grid());
     }
 

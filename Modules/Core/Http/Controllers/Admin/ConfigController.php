@@ -54,6 +54,9 @@ class ConfigController extends Controller
         $debug = config('app.debug') ? 1: 0;
         $safe->switch('debug', trans('core::config.debug.label'))->default($debug);
 
+        //后台后缀名
+        $safe->text('admin_prefix', '后台前缀')->default(config('admin.route.prefix'));
+
 
         //语言和时区
         $tab->add(trans('core::config.local.tab'), $local);
@@ -140,6 +143,7 @@ class ConfigController extends Controller
             [
                 'env' => 'required',
                 'debug' => 'required',
+                'admin_prefix' => 'required',
             ]);
 
         if ($validate->fails()) {
@@ -154,10 +158,13 @@ class ConfigController extends Controller
             $this->setEnv([
                 'APP_ENV'      => $request->input('env'),
                 'APP_DEBUG'    => $request->input('debug') == 'on' ? 'true' : 'false',
+                'ADMIN_ROUTE_PREFIX' => $request->input('admin_prefix', 'admin'),
             ]);
             $content->withSuccess('提醒', '操作成功');
 
-            return redirect(route('core.config.index'));
+            $redirectTo = url($request->input('admin_prefix', 'admin').'/core/config');
+
+            return redirect($redirectTo);
 
         }
 
