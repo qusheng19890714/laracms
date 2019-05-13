@@ -16,12 +16,6 @@ $router->group(['prefix' =>'core', 'module'=>'core'], function (Router $router) 
     //系统配置
     $router->get('config', 'ConfigController@index')->name('core.config.index');
 
-    //获取语言option
-    $router->get('config/lang', 'ConfigController@lang')->name('core.config.lang');
-
-    //获取时区option
-    $router->get('config/timezone', 'ConfigController@timezone')->name('core.config.timezone');
-
     //修改语言时区配置
     $router->post('config/local', 'ConfigController@localStore')->name('core.config.local.store');
 

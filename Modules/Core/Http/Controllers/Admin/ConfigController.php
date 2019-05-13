@@ -34,9 +34,8 @@ class ConfigController extends Controller
         //$local->disableReset();
         $local->action(route('core.config.local.store'));
 
-        $local->select('lang', trans('core::config.lang.label'))->options(route('core.config.lang'));
-        $local->select('timezone', trans('core::config.timezone.label'))->options(route('core.config.timezone'));
-
+        $local->select('lang', trans('core::config.lang.label'))->options(\Module::data('core::config.languages'))->default(config('app.locale'));
+        $local->select('timezone', trans('core::config.timezone.label'))->options(\Module::data('core::config.timezones'))->default(config('app.timezone'));
 
 
         //构建系统环境表单
@@ -69,38 +68,6 @@ class ConfigController extends Controller
         return $content;
 
 
-    }
-
-
-    public function lang()
-    {
-        $languages = \Module::data('core::config.languages');
-
-        foreach ($languages as $k => $language)
-        {
-            if ($language['id'] == config('app.locale')) {
-
-                $languages[$k]['selected'] = true;
-            }
-        }
-
-        return response()->json($languages);
-    }
-
-
-    public function timezone()
-    {
-        $timezones = \Module::data('core::config.timezones');
-
-        foreach ($timezones as $k => $timezone)
-        {
-            if ($timezone['id'] == config('app.timezone')) {
-
-                $timezones[$k]['selected'] = true;
-            }
-        }
-
-        return response()->json($timezones);
     }
 
 
