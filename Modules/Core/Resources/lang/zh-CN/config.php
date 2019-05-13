@@ -13,6 +13,8 @@ return [
     'env.production'  => '生产环境[production]，开启配置和路由缓存，加快运行速度',
     'lang.en'         => '英文',
     'lang.zh_CN'      => '简体中文',
+    'admin_prefix.label' => '后台前缀',
+
 
 
 

@@ -54,7 +54,7 @@ class ConfigController extends Controller
         $safe->switch('debug', trans('core::config.debug.label'))->default($debug);
 
         //后台后缀名
-        $safe->text('admin_prefix', '后台前缀')->default(config('admin.route.prefix'));
+        $safe->text('admin_prefix', trans('core::config.admin_prefix.label'))->default(config('admin.route.prefix'));
 
 
         //语言和时区
@@ -84,7 +84,7 @@ class ConfigController extends Controller
         if ($validate->fails()) {
 
             $error = $validate->errors()->first();
-            $content->withWarning('提醒', $error);
+            $content->withWarning(trans('core::master.warning'), $error);
 
 
         } else {
@@ -94,9 +94,9 @@ class ConfigController extends Controller
                 'APP_LOCALE'      => $request->input('lang'),
                 'APP_TIMEZONE'    => $request->input('timezone'),
             ]);
-            $content->withSuccess('提醒', '操作成功');
+            $content->withSuccess(trans('core::master.success'), trans('core::master.saved'));
 
-            return redirect(route('core.config.local'));
+            return redirect(route('core.config.index'));
 
         }
 
@@ -116,7 +116,7 @@ class ConfigController extends Controller
         if ($validate->fails()) {
 
             $error = $validate->errors()->first();
-            $content->withWarning('提醒', $error);
+            $content->withWarning(trans('core::master.warning'), $error);
 
 
         } else {
@@ -127,7 +127,7 @@ class ConfigController extends Controller
                 'APP_DEBUG'    => $request->input('debug') == 'on' ? 'true' : 'false',
                 'ADMIN_ROUTE_PREFIX' => $request->input('admin_prefix', 'admin'),
             ]);
-            $content->withSuccess('提醒', '操作成功');
+            $content->withSuccess(trans('core::master.success'), trans('core::master.saved'));
 
             $redirectTo = url($request->input('admin_prefix', 'admin').'/core/config');
 
