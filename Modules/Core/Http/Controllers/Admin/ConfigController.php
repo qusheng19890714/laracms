@@ -24,6 +24,7 @@ class ConfigController extends Controller
     public function index(Content $content)
     {
         $content->header(trans('core::config.index'));
+        $content->breadcrumb(['text'=>trans('core::config.index')]);
 
         //构建tab
         $tab = new Tab();
