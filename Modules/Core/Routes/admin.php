@@ -22,5 +22,8 @@ $router->group(['prefix' =>'core', 'module'=>'core'], function (Router $router) 
     //修改环境配置
     $router->post('config/safe', 'ConfigController@safeStore')->name('core.config.safe.store');
 
+    //编辑器上传图片
+    $router->post('config/upload', 'ConfigController@upload')->name('core.upload.store');
+
 
 });

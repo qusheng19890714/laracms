@@ -4,9 +4,6 @@ namespace Modules\Core\Http\Controllers\Admin;
 
 use Encore\Admin\Widgets\Tab;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Validation\Validator;
-use Modules\Core\Entitties\Config;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -14,7 +11,8 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use Modules\Core\Traits\ModuleConfig;
-
+use Auth;
+use Modules\Core\Traits\ImageUploadHandler;
 //use Nwidart\Modules\Module;
 
 class ConfigController extends Controller
@@ -135,6 +133,33 @@ class ConfigController extends Controller
             return redirect($redirectTo);
 
         }
+
+    }
+
+
+    public function upload(Request $request, ImageUploadHandler $imageUploadHandler)
+    {
+        $data = [
+
+            'success'=>false,
+            'msg' => trans('core::master.upload.failed'),
+            'file_path' => '',
+        ];
+
+        if ($request->upload_file) {
+
+            $result = $imageUploadHandler->save($request->upload_file, 'simditor', Auth::id(), '1024');
+
+            // 图片保存成功的话
+            if ($result) {
+                $data['file_path'] = $result['path'];
+                $data['msg']       = trans('core::master.upload.success');
+                $data['success']   = true;
+                $data['data'][]    = $result['path'];
+            }
+        }
+
+        return $data;
 
     }
 }

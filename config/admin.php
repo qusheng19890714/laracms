@@ -155,7 +155,7 @@ return [
 
         // Image and file upload path under the disk above.
         'directory' => [
-            'image' => 'images',
+            'image' => 'images/'.date("Ym/d", time()),
             'file'  => 'files',
         ],
     ],
