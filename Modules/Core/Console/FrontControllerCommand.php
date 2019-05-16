@@ -49,7 +49,7 @@ class FrontControllerCommand extends GeneratorCommand
     {
         parent::handle();
 
-        //$this->createViews();
+        $this->createViews();
     }
 
     /**

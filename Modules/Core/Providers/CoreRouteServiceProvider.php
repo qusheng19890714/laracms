@@ -132,7 +132,7 @@ abstract class CoreRouteServiceProvider extends ServiceProvider
             $router->group([
                 'type'       => 'front',
                 'namespace'  => $this->namespace,
-                'middleware' => ['web','module','front','locale','theme'],
+                'middleware' => ['web','module','front','theme'],
             ], function (Router $router) use ($frontRouteFile) {
                 require $frontRouteFile;
             });

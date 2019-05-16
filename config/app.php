@@ -124,6 +124,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'weixin_appid' => env('WEIXIN_APP_ID'),
+    'weixin_appsecret' => env('WEIXIN_APP_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
