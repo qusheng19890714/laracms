@@ -23,3 +23,13 @@ use Encore\Admin\Form;
 Encore\Admin\Form::forget(['map', 'editor']);
 
 Form::extend('simditor', Simditor::class);
+
+Form::init(function (Form $form) {
+
+    $form->disableEditingCheck();
+
+    $form->disableCreatingCheck();
+
+    $form->disableViewCheck();
+
+});

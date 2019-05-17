@@ -18,5 +18,8 @@ $router->group(['prefix'=>'user', 'module'=>'user'], function (Router $router) {
     // });
 
     $router->resource('users',IndexController::class);
+    $router->resource('authorconfig', AuthorConfigController::class);
+
+    $router->post('authorconfig/configstore', 'AuthorConfigController@config_store')->name('user.authorconfig.config.store');
 
 });

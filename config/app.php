@@ -124,8 +124,10 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'weixin_appid' => env('WEIXIN_APP_ID'),
-    'weixin_appsecret' => env('WEIXIN_APP_SECRET'),
+    'weixin_appid' => env('WEIXIN_APP_ID', ''),
+    'weixin_appsecret' => env('WEIXIN_APP_SECRET', ''),
+    'weixin_token'   => env('WEIXIN_TOKEN', ''),
+    'weixin_redirect' => env('WEIXIN_REDIRECT', ''),
 
     /*
     |--------------------------------------------------------------------------

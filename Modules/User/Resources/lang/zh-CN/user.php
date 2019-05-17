@@ -12,5 +12,16 @@ return [
     'password.label'    => '密码',
     'password.confirm.label' => '确认密码',
 
+    //第三方平台
+    'authorization.name.label' => '平台名称',
+
+    'weixin_app_id.label'     => 'APP ID',
+    'weixin_app_secret.label' => 'SECRET',
+    'weixin_redirect.label'   => 'URL',
+    'weixin_token.label'      => 'Token',
+
+    'authorization.index'     => '第三方平台',
+    'authorization.config'    => '第三方平台配置'
+
 
 ];
