@@ -11,6 +11,11 @@ return [
     'created_at.label'  => '注册时间',
     'password.label'    => '密码',
     'password.confirm.label' => '确认密码',
+    'login.type.label'  => '用户来源',
+    'identifier.label'  => '手机号码/邮箱',
+    'status.label'      => '状态',
+    'status.normal'     => '正常',
+    'status.delete'     => '禁用',
 
     //第三方平台
     'authorization.name.label' => '平台名称',
@@ -21,7 +26,9 @@ return [
     'weixin_token.label'      => 'Token',
 
     'authorization.index'     => '第三方平台',
-    'authorization.config'    => '第三方平台配置'
+    'authorization.config'    => '第三方平台配置',
+    'authorization.res_name'  => '别名',
+
 
 
 ];

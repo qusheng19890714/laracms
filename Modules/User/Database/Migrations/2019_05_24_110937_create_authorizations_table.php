@@ -13,15 +13,19 @@ class CreateAuthorizationsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('authorizations');
+
         Schema::create('authorizations', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('user_name')->comment('用户名');
-            $table->string('type')->comment('第三方类型');
-            $table->string('open_id')->comment('open_id');
-            $table->string('union_id')->comment('微信union_id');
-            $table->string('authorization_id')->comment('第三方编号id');
+            $table->string('type')->comment('登录类型:email,mobile,weixin....');
+            $table->string('identifier')->nullable()->comment('邮箱, 手机号, 第三方标识');
+            $table->string('credential')->nullable()->comment('站内的密码, 站外的不保存或保存token');
+            $table->tinyInteger('verified')->default(1)->comment('是否验证');
+            $table->ipAddress('ip')->nullable()->comment('ip地址');
+            $table->tinyInteger('status')->default(1)->comment('状态');
 
             $table->timestamps();
         });

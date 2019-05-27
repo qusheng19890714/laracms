@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAuthorizationsConfigTable extends Migration
+class CreateThirdPartyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateAuthorizationsConfigTable extends Migration
      */
     public function up()
     {
-        Schema::create('authorizations_config', function (Blueprint $table) {
+        Schema::create('third_party', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->string('name')->comment('第三方平台名称');
             $table->string('res_name')->comment('简写');
+            $table->json('data')->comment('第三方配置信息');
             $table->tinyInteger('status')->default(0)->comment('是否开启');
 
             $table->timestamps();
@@ -30,6 +32,6 @@ class CreateAuthorizationsConfigTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('authorizations_config');
+        Schema::dropIfExists('third_party');
     }
 }

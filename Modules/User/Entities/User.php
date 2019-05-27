@@ -4,21 +4,18 @@ namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Model
 {
-    protected $fillable = ['avatar', 'user_name', 'user_from'];
+    protected $fillable = ['avatar',  'name', 'status'];
+
     protected $table = 'users';
 
-    public function getJWTIdentifier()
+
+    public function authorization()
     {
-        return $this->getKey();
+        return $this->hasOne(Authorization::class);
     }
 
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
+
 }

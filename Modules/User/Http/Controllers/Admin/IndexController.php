@@ -10,6 +10,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Module;
 
 class IndexController extends Controller
 {
@@ -85,25 +86,26 @@ class IndexController extends Controller
         $grid->id('ID')->sortable();
         $grid->column('name', trans('user::user.name.label'));
         $grid->column('avatar', trans('user::user.avatar.label'))->image('',50,50);
-        $grid->column('email', trans('user::user.email.label'));
-        $grid->column('phone', trans('user::user.phone.label'));
+        $grid->column('authorization.type', trans('user::user.login.type.label'))->display(function() {
+
+            $login_type = Module::data('user::login.type');
+            return $login_type[$this->authorization['type']];
+
+        });
+        $grid->column('authorization.status', trans('user::user.status.label'))->display(function($status) {
+
+            $status = Module::data('user::status');
+            return $status[$this->authorization['status']];
+
+        });
+
         $grid->column('created_at', trans('user::user.created_at.label'));
 
         //查询
         $grid->filter(function($filter) {
 
-            $filter->column(1/2, function($filter) {
+            $filter->between('created_at', trans('user::user.created_at.label'))->datetime();
 
-                $filter->equal('phone', trans('user::user.phone.label'));
-                $filter->between('created_at', trans('user::user.created_at.label'))->datetime();
-            });
-
-            $filter->column(1/2, function($filter) {
-
-                $filter->like('name', trans('user::user.name.label'));
-                $filter->like('email', trans('user::user.email.label'));
-
-            });
         });
 
         //禁用view
@@ -153,45 +155,62 @@ class IndexController extends Controller
         //用户名
         $form->text('name', trans('user::user.name.label'))->rules('required|string|max:255');
 
-        //邮箱
-        $form->email('email', trans('user::user.email.label'))->rules(function($form) {
-
-            if (!$id = $form->model()->id) {
-
-                return 'required|email|string|max:255|unique:users,email';
-            }
-
-            return 'required|email|string|max:255|unique:users,email,'. $form->model()->id;
-
-        });
-
-        //手机号
-        $form->mobile('phone', trans('user::user.phone.label'))->rules(function($form) {
-
-            if (!$id = $form->model()->id) {
-
-                return 'required|string|max:255|unique:users,phone';
-            }
-
-            return 'required|string|max:255|unique:users,phone,'.$form->model()->id;
-
-        });
-
         //头像
         $form->image('avatar', trans('user::user.avatar.label'))->rules('mimes:jpeg,bmp,png,gif|dimensions:min_width=208,min_height=208')->help('头像必须是 jpeg, bmp, png, gif 格式的图片');
 
+        //展示登录类型
+        $form->select('authorization.type', trans('user::user.login.type.label'))->options(Module::data('user::login.type'));
+
+        //登录账号
+        $form->text('authorization.identifier', trans('user::user.identifier.label'))->rules(function($form) {
+
+
+            if (request()->input('authorization.type') == 'phone') {
+
+                if (!$id = $form->model()->id) {
+
+                    return 'required|string|max:255|unique:authorizations,identifier';
+                }
+
+                return 'required|string|max:255|unique:authorizations,identifier,'. $form->model()->id;
+
+            }
+
+            if (request()->input('authorization.type') == 'email') {
+
+                if (!$id = $form->model()->id) {
+
+                    return 'required|email|string|max:255|unique:authorizations,identifier';
+                }
+
+                return 'required|email|string|max:255|unique:authorizations,identifier,'. $form->model()->id;
+            }
+
+        });
+
         //密码
-        $form->password('password', trans('user::user.password.label'))->rules('required|confirmed');
-        $form->password('password_confirmation', trans('user::user.password.confirm.label'))->rules('required')
-            ->default(function ($form) {
+        $form->password('authorization.credential', trans('user::user.password.label'))->rules('required|confirmed');
+        $form->password('authorization.credential_confirmation', trans('user::user.password.confirm.label'))->rules('required')->default(function($form){
 
-                return $form->model()->password;
-            });
+            return $form->model()->authorization['credential'];
+        });
 
-        $form->ignore(['password_confirmation']);
+        $form->ignore(['authorization.credential_confirmation']);
 
-        //注册时间
-        $form->display('created_at', trans('user::user.created_at.label'));
+        //状态
+        $form->radio('authorization.status', trans('user::user.status.label'))->options([1=>trans('user::user.status.normal'), 0=>trans('user::user.status.delete')])->default(1);
+
+        $form->saving(function(Form $form) {
+
+            $authorization = $form->authorization;
+
+            if ($authorization['credential'] && $form->model()->authorization['credential'] != $authorization['credential']) {
+
+                $authorization['credential'] = bcrypt($authorization['credential']);
+
+                $form->authorization = $authorization;
+            }
+        });
 
 
         //底部
@@ -208,4 +227,5 @@ class IndexController extends Controller
 
         return $form;
     }
+
 }

@@ -15,15 +15,12 @@ class WeixinController extends EasyWechatController
      */
     public function index(Request $request)
     {
-        //021pu1u52Z4abR0mkas529pnu52pu1ux
 
-        //$response = $this->weixin->oauth->scopes(['snsapi_userinfo'])->redirect();
+        $response = $this->weixin->oauth->scopes(['snsapi_userinfo'])->redirect();
 
-        //return $response;
+        return $response;
 
-        $a = $this->weixin->oauth->user();
 
-        var_dump($a);
     }
 
     /**

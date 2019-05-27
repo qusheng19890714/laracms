@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAvatarAndPhoneToUsersTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class AddAvatarAndPhoneToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
 
+        Schema::dropIfExists('users');
+
+        Schema::create('users', function (Blueprint $table) {
+
+            $table->bigIncrements('id');
+            $table->string('name')->nullable()->comment('昵称');
             $table->string('avatar')->nullable()->comment('头像');
-            $table->string('phone')->comment('手机号码');
+
+            $table->timestamps();
         });
     }
 
@@ -27,10 +33,6 @@ class AddAvatarAndPhoneToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-
-            $table->dropColumn('avatar');
-            $table->dropColumn('phone');
-        });
+        Schema::dropIfExists('users');
     }
 }

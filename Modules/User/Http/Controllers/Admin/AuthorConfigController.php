@@ -113,7 +113,7 @@ class AuthorConfigController extends Controller
             'off' => ['value'=>0, 'text'=>trans('core::master.close'), 'color'=>'default']
         ];
 
-        $grid->column('res_name', '简称');
+        $grid->column('res_name', trans('user::user.authorization.res_name'));
         $grid->column('status', trans('core::master.status.label'))->status()->switch($states);
         $grid->column('created_at', trans('core::master.created_at.label'));
 
@@ -150,7 +150,7 @@ class AuthorConfigController extends Controller
     {
         $form = new Form(new AuthorConfig);
 
-        $form->text('name', 'Name');
+        $form->text('name', trans('user::user.authorization.name.label'));
 
         $form->switch('status', trans('core::master.status.label'));
 
