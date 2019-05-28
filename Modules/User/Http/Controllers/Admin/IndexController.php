@@ -55,8 +55,8 @@ class IndexController extends Controller
     public function edit($id, Content $content)
     {
         return $content
-            ->header('Edit')
-            ->description('description')
+            ->header(trans('user::user.edit'))
+            ->breadcrumb(['text'=>trans('user::user.title'),'url'=>'admin/user/users'], ['text'=>trans('user::user.edit')])
             ->body($this->form()->edit($id));
     }
 
@@ -69,8 +69,8 @@ class IndexController extends Controller
     public function create(Content $content)
     {
         return $content
-            ->header('Create')
-            ->description('description')
+            ->header(trans('user::user.create'))
+            ->breadcrumb(['text'=>trans('user::user.title'),'url'=>'admin/user/users'], ['text'=>trans('user::user.create')])
             ->body($this->form());
     }
 
@@ -84,26 +84,44 @@ class IndexController extends Controller
         $grid = new Grid(new User);
 
         $grid->id('ID')->sortable();
-        $grid->column('name', trans('user::user.name.label'));
-        $grid->column('avatar', trans('user::user.avatar.label'))->image('',50,50);
+        $grid->column('name', trans('user::user.name.label'))->display(function($title){
+
+            return '<div class="text-sm">'.$title.'</div>';
+
+        });
+        $grid->column('avatar', trans('user::user.avatar.label'))->image('',25,25);
+
         $grid->column('authorization.type', trans('user::user.login.type.label'))->display(function() {
 
             $login_type = Module::data('user::login.type');
-            return $login_type[$this->authorization['type']];
+
+            return '<div class="text-sm">'.$login_type[$this->authorization['type']].'</div>';
 
         });
-        $grid->column('authorization.status', trans('user::user.status.label'))->display(function($status) {
+
+        $grid->column('authorization.identifier', trans('user::user.identifier.label'))->display(function() {
+
+            return '<div class="text-sm">'.$this->authorization['identifier'].'</div>';
+
+        });
+
+        $grid->column('authorization.status', trans('user::user.status.label'))->display(function() {
 
             $status = Module::data('user::status');
-            return $status[$this->authorization['status']];
+
+            return '<div class="text-sm">'.$status[$this->authorization['status']].'</div>';
 
         });
 
-        $grid->column('created_at', trans('user::user.created_at.label'));
+        $grid->column('created_at', trans('user::user.created_at.label'))->display(function($created_at) {
+
+            return '<div class="text-sm">'.$created_at.'</div>';
+        });
 
         //查询
         $grid->filter(function($filter) {
 
+            $filter->like('authorization.identifier', trans('user::user.identifier.label'));
             $filter->between('created_at', trans('user::user.created_at.label'))->datetime();
 
         });
@@ -159,7 +177,7 @@ class IndexController extends Controller
         $form->image('avatar', trans('user::user.avatar.label'))->rules('mimes:jpeg,bmp,png,gif|dimensions:min_width=208,min_height=208')->help('头像必须是 jpeg, bmp, png, gif 格式的图片');
 
         //展示登录类型
-        $form->select('authorization.type', trans('user::user.login.type.label'))->options(Module::data('user::login.type'));
+        $form->select('authorization.type', trans('user::user.login.type.label'))->options(Module::data('user::login.type'))->rules('required');
 
         //登录账号
         $form->text('authorization.identifier', trans('user::user.identifier.label'))->rules(function($form) {
@@ -185,6 +203,8 @@ class IndexController extends Controller
 
                 return 'required|email|string|max:255|unique:authorizations,identifier,'. $form->model()->id;
             }
+
+            return 'required|string|max:255';
 
         });
 

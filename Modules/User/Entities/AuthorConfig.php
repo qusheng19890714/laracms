@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class AuthorConfig extends Model
 {
-    protected $table = 'authorizations_config';
-    protected $fillable = ['name', 'status'];
+    protected $table = 'third_party';
+    protected $fillable = ['name', 'res_name', 'data', 'status'];
+
+    protected $casts = ['data'=>'json'];
 }

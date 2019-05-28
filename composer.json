@@ -18,6 +18,7 @@
         "liyu/dingo-serializer-switch": "^0.3.1",
         "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "^5.0",
+        "overtrue/laravel-query-logger": "^1.0",
         "overtrue/wechat": "^4.1",
         "socialiteproviders/weixin": "^4.0",
         "tymon/jwt-auth": "1.0.0-rc.4.1"

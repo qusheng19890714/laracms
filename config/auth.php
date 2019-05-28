@@ -66,10 +66,9 @@ return [
     */
 
     'providers' => [
-
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => Modules\User\Entities\Authorization::class,
         ],
 
         // 'users' => [

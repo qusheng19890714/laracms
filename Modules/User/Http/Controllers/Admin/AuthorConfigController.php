@@ -84,28 +84,16 @@ class AuthorConfigController extends Controller
         $grid = new Grid(new AuthorConfig);
 
         //禁用新增, 导出, 筛选按钮
-        $grid->disableCreateButton();
+        //$grid->disableCreateButton();
         $grid->disableExport();
         $grid->disableColumnSelector();
+        //$grid->disableActions();
+        $grid->actions(function($action) {
 
-        $grid->disableActions();
-
-
-        $grid->column('name', trans('user::user.authorization.name.label'))->modal('配置信息',function(){
-
-            $form = new \Encore\Admin\Widgets\Form();
-            $form->action(route('user.authorconfig.config.store'));
-
-            $form->text('weixin_app_id', trans('user::user.weixin_app_id.label'))->help('微信公众号的APP_ID')->default(config('services.weixin.client_id'))
-                ->rules('required|string');
-            $form->text('weixin_app_secret', trans('user::user.weixin_app_secret.label'))->help('微信公众号的SECRET')->default(config('services.weixin.client_secret'))
-                ->rules('required|string');
-            $form->url('weixin_redirect', trans('user::user.weixin_redirect.label'))->help('微信公众号的回调URL')->default(config('services.weixin.redirect'))
-                ->rules('url');
-            $form->text('weixin_token', trans('user::user.weixin_token.label'))->help('微信公众号的TOKEN')->default(config('services.weixin.token'));
-
-            return $form;
+            $action->disableView();
         });
+
+        $grid->column('name', trans('user::user.authorization.name.label'));
 
         $states = [
 
@@ -113,7 +101,7 @@ class AuthorConfigController extends Controller
             'off' => ['value'=>0, 'text'=>trans('core::master.close'), 'color'=>'default']
         ];
 
-        $grid->column('res_name', trans('user::user.authorization.res_name'));
+        $grid->column('res_name', trans('user::user.authorization.res_name.label'));
         $grid->column('status', trans('core::master.status.label'))->status()->switch($states);
         $grid->column('created_at', trans('core::master.created_at.label'));
 
@@ -150,9 +138,29 @@ class AuthorConfigController extends Controller
     {
         $form = new Form(new AuthorConfig);
 
-        $form->text('name', trans('user::user.authorization.name.label'));
+        $form->text('name', trans('user::user.authorization.name.label'))->rules('required');
+        $form->text('res_name', trans('user::user.authorization.res_name.label'))->rules('required');
+
+        $form->embeds('data', trans('user::user.authorization.config'), function($form) {
+
+            $form->text('app_id',trans('user::user.app_id.label'))->rules('required|string');
+            $form->text('app_secret', trans('user::user.app_secret.label'))->rules('required|string');
+            $form->url('redirect', trans('user::user.redirect.label'))->rules('required');
+
+        });
 
         $form->switch('status', trans('core::master.status.label'));
+
+        $form->submitted(function() {
+
+            // 写入ENV配置
+            $this->setEnv([
+                'WEIXIN_APP_ID'      =>  request()->data['app_id'],
+                'WEIXIN_APP_SECRET'   => request()->data['app_secret'],
+                'WEIXIN_REDIRECT_URI' => request()->data['redirect'],
+            ]);
+
+        });
 
         return $form;
     }

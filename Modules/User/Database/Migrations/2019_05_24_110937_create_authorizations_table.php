@@ -23,6 +23,7 @@ class CreateAuthorizationsTable extends Migration
             $table->string('type')->comment('登录类型:email,mobile,weixin....');
             $table->string('identifier')->nullable()->comment('邮箱, 手机号, 第三方标识');
             $table->string('credential')->nullable()->comment('站内的密码, 站外的不保存或保存token');
+            $table->string('unionid')->nullable()->comment('微信登录用到的union_id');
             $table->tinyInteger('verified')->default(1)->comment('是否验证');
             $table->ipAddress('ip')->nullable()->comment('ip地址');
             $table->tinyInteger('status')->default(1)->comment('状态');

@@ -1,9 +1,11 @@
 <?php
 namespace Modules\User\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Hash;
 use Modules\Core\Base\ApiController;
 use Modules\User\Entities\User;
 use Modules\User\Http\Requests\Api\AuthorizationRequest;
+use Modules\User\Http\Requests\Api\SocialAuthorizationRequest;
 use Modules\User\Entities\AuthorConfig;
 use Modules\User\Entities\Authorization;
 
@@ -15,7 +17,7 @@ use Modules\User\Entities\Authorization;
 class AuthorizationsController extends ApiController
 {
 
-    public function socialStore($type, AuthorizationRequest $request)
+    public function socialStore($type, SocialAuthorizationRequest $request)
     {
 
         $authorizations = AuthorConfig::where('status', 1)->pluck('res_name')->toArray();
@@ -31,7 +33,7 @@ class AuthorizationsController extends ApiController
         //exit;
         $driver = \Socialite::driver($type);
 
-
+        try{
 
             if ($code = $request->code) {
 
@@ -51,6 +53,10 @@ class AuthorizationsController extends ApiController
 
             $oauthUser = $driver->userFromToken($token);
 
+        }catch (\Exception $e) {
+
+            return $this->response->errorUnauthorized('参数错误，未获取用户信息');
+        }
 
 
         switch($type)
@@ -61,10 +67,10 @@ class AuthorizationsController extends ApiController
 
                 if ($unionid) {
 
-                    $authorization = Authorization::where('type', $type)->where('union_id', $unionid)->first();
+                    $authorization = Authorization::where('type', $type)->where('unionid', $unionid)->first();
                 }else {
 
-                    $authorization = Authorization::where('type', $type)->where('open_id', $oauthUser->getId())->first();
+                    $authorization = Authorization::where('type', $type)->where('identifier', $oauthUser->getId())->first();
                 }
 
                 //创建用户
@@ -74,24 +80,57 @@ class AuthorizationsController extends ApiController
 
                         'name'     => $oauthUser->getNickName(),
                         'avatar'   => $oauthUser->getAvatar(),
-                        'user_from'=> $type,
 
                     ]);
 
-                    Authorization::create([
+                    $authorization = Authorization::create([
 
                         'user_id'    => $user->id,
-                        'user_name'  => $oauthUser->getNickName(),
                         'type'       => $type,
-                        'union_id'   => $unionid,
-                        'open_id'    => $oauthUser->getId()
+                        'unionid'    => $unionid,
+                        'identifier' => $oauthUser->getId(),
+                        'verified'   => 1,
+                        'ip'         => request()->ip(),
                     ]);
                 }
 
                 break;
-
-
         }
 
+        $token=\Auth::guard('api')->fromUser($authorization);
+
+        return $this->respondWithToken($token);
+
+    }
+
+    /**
+     * 手机和邮箱登录
+     * @param AuthorizationRequest $request
+     */
+    public function store(AuthorizationRequest $request)
+    {
+
+        $user = Authorization::where('type', $request->type)->where('identifier', $request->username)->where('verified', 1)->where('status', 1)->first();
+
+        if (!$user || !Hash::check($request->password, $user->credential)) {
+
+            return $this->response->errorUnauthorized(trans('user::user.login.error.tip'));
+        }
+
+        $token = \Auth::guard('api')->fromUser($user);
+
+        return $this->respondWithToken($token)->setStatusCode(201);
+
+    }
+
+
+    protected function respondWithToken($token)
+    {
+        return $this->response->array([
+
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'expires_in' => \Auth::guard('api')->factory()->getTTL() * 60
+        ]);
     }
 }

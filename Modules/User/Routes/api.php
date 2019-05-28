@@ -16,8 +16,10 @@ $api->version('v1', ['namespace'=>'Modules\User\Http\Controllers\Api', 'middlewa
     ], function($api) {
 
         //第三方登录
-        $api->post('{social_type}/authorizations', 'AuthorizationsController@socialStore')->name('api.user.authorizations.store');
+        $api->post('{social_type}/authorizations', 'AuthorizationsController@socialStore')->name('api.user.social.authorizations.store');
 
+        //登录
+        $api->post('login', 'AuthorizationsController@store')->name('api.user.authorizations.store');
 
     });
 
