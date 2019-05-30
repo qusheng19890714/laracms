@@ -1,0 +1,22 @@
+{
+    "name": "Order",
+    "alias": "order",
+    "title": "order::order.title",
+    "description": "order::order.description",
+    "keywords": [],
+    "version": "1.0.0",
+    "active": 1,
+    "installed": 1,
+    "order": 10,
+    "author": "allen qu",
+    "email": "318566528@qq.com",
+    "homepage": "http:\/\/www.zotop.com",
+    "providers": [
+        "Modules\\Order\\Providers\\OrderServiceProvider",
+        "Modules\\Order\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ]
+}

@@ -341,3 +341,8 @@ if (! function_exists('trans_find')) {
         return null;
     }
 }
+
+function route_class()
+{
+    return str_replace('.', '-', Route::currentRouteName());
+}
