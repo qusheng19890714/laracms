@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'title'             => 'Pay 标题',
-    'description'       => 'Pay 说明',
+    'title'             => '支付模块',
+    'description'       => '集成了支付宝支付和微信支付',
 ];

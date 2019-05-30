@@ -21,7 +21,8 @@
         "overtrue/laravel-query-logger": "^1.0",
         "overtrue/wechat": "^4.1",
         "socialiteproviders/weixin": "^4.0",
-        "tymon/jwt-auth": "1.0.0-rc.4.1"
+        "tymon/jwt-auth": "1.0.0-rc.4.1",
+        "yansongda/pay": "^2.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
