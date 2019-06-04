@@ -37,7 +37,7 @@ class NotifyController extends FrontController
     public function wechatReturn()
     {
         try {
-            app('wechat')->verify();
+            app('wechat_pay')->verify();
         } catch (\Exception $e) {
 
             return '支付失败';
@@ -53,6 +53,6 @@ class NotifyController extends FrontController
     //支付宝服务端回调
     public function wechatNotify()
     {
-        $data = app('wechat')->verify();
+        $data = app('wechat_pay')->verify();
     }
 }

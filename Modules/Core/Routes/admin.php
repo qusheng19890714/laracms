@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 
 // Core 模块后台路由
-$router->group(['prefix' =>'core', 'module'=>'core'], function (Router $router) {
+$router->group(['prefix' =>'core', 'module'=>'core', 'middleware'=>config('admin.route.middleware')], function (Router $router) {
 
     //模块列表
     $router->get('module', 'ModuleController@index')->name('core.module.index');
