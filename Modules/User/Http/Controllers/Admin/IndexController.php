@@ -209,13 +209,13 @@ class IndexController extends Controller
         });
 
         //密码
-        $form->password('authorization.credential', trans('user::user.password.label'))->rules('required|confirmed');
-        $form->password('authorization.credential_confirmation', trans('user::user.password.confirm.label'))->rules('required')->default(function($form){
+        $form->password('authorization.password', trans('user::user.password.label'))->rules('required|confirmed');
+        $form->password('authorization.password_confirmation', trans('user::user.password.confirm.label'))->rules('required')->default(function($form){
 
-            return $form->model()->authorization['credential'];
+            return $form->model()->authorization['password'];
         });
 
-        $form->ignore(['authorization.credential_confirmation']);
+        $form->ignore(['authorization.password_confirmation']);
 
         //状态
         $form->radio('authorization.status', trans('user::user.status.label'))->options([1=>trans('user::user.status.normal'), 0=>trans('user::user.status.delete')])->default(1);
@@ -224,9 +224,9 @@ class IndexController extends Controller
 
             $authorization = $form->authorization;
 
-            if ($authorization['credential'] && $form->model()->authorization['credential'] != $authorization['credential']) {
+            if ($authorization['password'] && $form->model()->authorization['password'] != $authorization['password']) {
 
-                $authorization['credential'] = bcrypt($authorization['credential']);
+                $authorization['password'] = bcrypt($authorization['password']);
 
                 $form->authorization = $authorization;
             }

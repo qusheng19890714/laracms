@@ -112,7 +112,7 @@ class AuthorizationsController extends ApiController
 
         $user = Authorization::where('type', $request->type)->where('identifier', $request->username)->where('verified', 1)->where('status', 1)->first();
 
-        if (!$user || !Hash::check($request->password, $user->credential)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
 
             return $this->response->errorUnauthorized(trans('user::user.login.error.tip'));
         }

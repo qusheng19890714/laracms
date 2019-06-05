@@ -13,7 +13,7 @@ class Authorization extends Authenticatable implements JWTSubject
 
     protected $table = 'authorizations';
 
-    protected $fillable = ['user_id', 'type', 'identifier', 'credential', 'verified', 'ip'];
+    protected $fillable = ['user_id', 'type', 'identifier', 'password', 'verified', 'ip'];
 
     public function getJWTIdentifier()
     {
@@ -27,7 +27,7 @@ class Authorization extends Authenticatable implements JWTSubject
 
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
 
