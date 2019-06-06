@@ -5,6 +5,7 @@ namespace Modules\User\Http\Controllers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Modules\Core\Base\FrontController;
 use Auth;
 
@@ -49,6 +50,12 @@ class LoginController extends FrontController
         ]);
     }
 
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('user::user.login.error.tip')],
+        ]);
+    }
 
     public function logout(Request $request)
     {
@@ -59,4 +66,8 @@ class LoginController extends FrontController
         return $this->loggedOut($request) ?: redirect('/order');
     }
 
+    protected function guard()
+    {
+        return Auth::guard('web');
+    }
 }
