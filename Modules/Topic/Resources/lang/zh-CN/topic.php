@@ -19,5 +19,7 @@ return [
     'body.label'        => '内容',
     'order.help'        => '数值越大,权重越高',
     'tags.label'        => '标签',
+    'create.header'     => '发布新闻',
+    'edit.header'       => '编辑新闻'
 
 ];

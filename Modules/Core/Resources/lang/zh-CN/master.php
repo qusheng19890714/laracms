@@ -11,6 +11,8 @@ return [
     'close' => '关闭',
     'created_at.label' => '添加时间',
     'status.label' => '状态',
+    'status.normal' => '正常',
+    'status.delete' => '删除',
 
 
 ];

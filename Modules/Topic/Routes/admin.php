@@ -19,4 +19,12 @@ $router->group(['prefix'=>'topic', 'module'=>'topic'], function (Router $router)
 
     $router->resource('categories', CategoriesController::class);
     $router->resource('topics', TopicsController::class);
+    //$router->resource('replies', RepliesController::class);
+
+    $router->get('topic/{topic}/replies', 'RepliesController@replies')->name('topic.reply'); //文章评论
+    $router->get('topic/{topic}/replies/create', 'RepliesController@create')->name('replies.create');
+    $router->post('topic/{topic}/replies/', 'RepliesController@store')->name('replise.store');
+    $router->get('topic/{topic}/replies/{reply}/edit', 'RepliesController@edit')->name('replies.edit');
+    $router->patch('topic/{topic}/replies/{reply}', 'RepliesController@update')->name('replies.update');
+    $router->delete('topic/{topic}/replies/{reply}', 'RepliesController@destroy')->name('replies.destroy');
 });
