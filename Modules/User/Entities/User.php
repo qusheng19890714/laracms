@@ -3,6 +3,7 @@
 namespace Modules\User\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Topic\Entities\Topic;
 
 
 class User extends Model
@@ -18,4 +19,8 @@ class User extends Model
     }
 
 
+    public function topic()
+    {
+        return $this->hasMany(Topic::class);
+    }
 }

@@ -5,17 +5,17 @@
     "description": "topic::topic.description",
     "keywords": [],
     "version": "1.0.0",
-    "active": 0,
-    "installed": 0,
+    "active": 1,
+    "installed": 1,
     "order": 10,
-    "author":"allen qu",
-    "email":"318566528@qq.com",
-    "homepage":"http://www.zotop.com",
+    "author": "allen qu",
+    "email": "318566528@qq.com",
+    "homepage": "http:\/\/www.zotop.com",
     "providers": [
         "Modules\\Topic\\Providers\\TopicServiceProvider",
         "Modules\\Topic\\Providers\\RouteServiceProvider"
     ],
-    "aliases":{},
+    "aliases": [],
     "files": [
         "start.php"
     ]

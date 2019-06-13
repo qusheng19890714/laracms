@@ -9,7 +9,8 @@
     "author": "allen qu",
     "providers": [
         "Modules\\Core\\Providers\\CoreServiceProvider",
-        "Modules\\Core\\Providers\\ThemeServiceProvider"
+        "Modules\\Core\\Providers\\ThemeServiceProvider",
+        "Modules\\Core\\Providers\\CoreAuthServiceProvider"
     ],
     "aliases": {
         "Theme": "Modules\\Core\\Support\\Facades\\Theme"

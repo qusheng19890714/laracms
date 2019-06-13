@@ -17,4 +17,6 @@ $router->group(['prefix'=>'topic', 'module'=>'topic'], function (Router $router)
     //    $router->delete('destroy/{id}','AdministratorController@destroy')->name('topic.example.destroy')->middleware('allow:topic.example.destroy');
     // });
 
+    $router->resource('categories', CategoriesController::class);
+    $router->resource('topics', TopicsController::class);
 });

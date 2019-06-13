@@ -3,6 +3,8 @@
 namespace Modules\Topic\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Topic\Entities\Topic;
+use Modules\Topic\Observers\TopicObserver;
 
 class TopicServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,10 @@ class TopicServiceProvider extends ServiceProvider
     public function provides()
     {
         return [];
+    }
+
+    public function boot()
+    {
+        Topic::observe(TopicObserver::class);
     }
 }
