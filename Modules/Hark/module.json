@@ -1,0 +1,22 @@
+{
+    "name": "Hark",
+    "alias": "hark",
+    "title": "hark::hark.title",
+    "description": "hark::hark.description",
+    "keywords": [],
+    "version": "1.0.0",
+    "active": 1,
+    "installed": 1,
+    "order": 10,
+    "author": "allen qu",
+    "email": "318566528@qq.com",
+    "homepage": "http:\/\/www.zotop.com",
+    "providers": [
+        "Modules\\Hark\\Providers\\HarkServiceProvider",
+        "Modules\\Hark\\Providers\\RouteServiceProvider"
+    ],
+    "aliases": [],
+    "files": [
+        "start.php"
+    ]
+}

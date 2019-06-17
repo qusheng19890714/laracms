@@ -119,6 +119,22 @@ class TopicsController extends Controller
 
         $grid->column('created_at', trans('topic::topic.created_at.label'))->sortable();
 
+        //筛选
+        $grid->filter(function($filter){
+
+            // 去掉默认的id过滤器
+            $filter->disableIdFilter();
+
+            $filter->like('title', trans('topic::topic.title.label'));
+            $filter->equal('category_id', trans('topic::topic.category.label'))->select(Category::selectOptions());
+            $filter->between('created_at', trans('topic::topic.created_at.label'))->datetime();
+        });
+
+
+
+
+
+
         $grid->actions(function ($action) {
 
             $action->disableView();

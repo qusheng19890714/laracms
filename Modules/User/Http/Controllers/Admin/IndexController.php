@@ -2,7 +2,7 @@
 
 namespace Modules\User\Http\Controllers\Admin;
 
-use App\Admin\Extensions\Export\UserExcelExport;
+use Modules\User\Export\UsersExcelExport;
 use Modules\User\Entities\User;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
@@ -134,7 +134,7 @@ class IndexController extends Controller
         });
 
         //excel导出数据
-        $grid->exporter(new UserExcelExport());
+        $grid->exporter(new UsersExcelExport());
 
         return $grid;
     }
@@ -206,7 +206,7 @@ class IndexController extends Controller
 
             return 'required|string|max:255';
 
-        });
+        })->required();
 
         //密码
         $form->password('authorization.password', trans('user::user.password.label'))->rules('required|confirmed');

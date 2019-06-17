@@ -12,7 +12,6 @@ $router->group(['prefix' =>'core', 'module'=>'core', 'middleware'=>config('admin
     //模块卸载
     $router->post('module/uninstall/{module}', 'ModuleController@uninstall')->name('core.module.uninstall');
 
-
     //系统配置
     $router->get('config', 'ConfigController@index')->name('core.config.index');
 
@@ -24,6 +23,7 @@ $router->group(['prefix' =>'core', 'module'=>'core', 'middleware'=>config('admin
 
     //编辑器上传图片
     $router->post('config/upload', 'ConfigController@upload')->name('core.upload.store');
+
 
 
 });

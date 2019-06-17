@@ -59,6 +59,20 @@ return [
             ]) : [],
         ],
 
+        'mysql_harkhark_v5' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HARKHARK_V5_HOST', 'localhost'),
+            'port' => env('DB_HARKHARKB_V5_PORT', '3306'),
+            'database' => env('DB_HARKHARK_V5_DATABASE', 'forge'),
+            'username' => env('DB_HARKHARK_V5_USERNAME', 'forge'),
+            'password' => env('DB_HARKHARK_V5_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => env('DB_HARKHARK_V5_PREFIX', ''),
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
