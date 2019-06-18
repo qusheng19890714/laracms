@@ -17,7 +17,7 @@
  * Admin::js('/packages/prettydocs/js/main.js');
  *
  */
-use App\Admin\Extensions\Simditor;
+use Modules\Core\Extensions\Simditor;
 use Encore\Admin\Form;
 
 Encore\Admin\Form::forget(['map', 'editor']);

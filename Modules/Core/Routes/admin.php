@@ -8,9 +8,9 @@ $router->group(['prefix' =>'core', 'module'=>'core', 'middleware'=>config('admin
     //模块列表
     $router->get('module', 'ModuleController@index')->name('core.module.index');
     //模块安装
-    $router->post('module/install/{module}', 'ModuleController@install')->name('core.module.install');
+    $router->post('module/install', 'ModuleController@install')->name('core.module.install');
     //模块卸载
-    $router->post('module/uninstall/{module}', 'ModuleController@uninstall')->name('core.module.uninstall');
+    $router->post('module/uninstall', 'ModuleController@uninstall')->name('core.module.uninstall');
 
     //系统配置
     $router->get('config', 'ConfigController@index')->name('core.config.index');

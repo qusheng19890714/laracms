@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Request;
 
 class Module extends Model
 {
-    //protected $primaryKey = 'name';
+    protected $primaryKey = 'name';
 
     public function paginate()
     {

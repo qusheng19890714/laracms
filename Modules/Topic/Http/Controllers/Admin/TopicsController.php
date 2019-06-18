@@ -24,6 +24,7 @@ class TopicsController extends Controller
      */
     public function index(Content $content)
     {
+
         return $content
             ->header(trans('topic::topic.list.header'))
             ->description(trans('topic::topic.list.description'))

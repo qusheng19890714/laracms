@@ -2,8 +2,6 @@
 
 namespace Modules\Core\Http\Controllers\Admin;
 
-use App\Admin\Extensions\Install;
-use App\Admin\Extensions\Uninstall;
 use Illuminate\Http\Request;
 use Modules\Core\Entities\Module;
 use App\Http\Controllers\Controller;
@@ -12,6 +10,8 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Modules\Core\Extensions\moduleInstall;
+use Modules\Core\Extensions\moduleUnInstall;
 
 
 class ModuleController extends Controller
@@ -66,12 +66,12 @@ class ModuleController extends Controller
                 if ($module->installed == 0) {
 
                     //安装
-                    $actions->append(new Install($actions->row['code']));
+                    $actions->append(new moduleInstall($actions->row['code']));
 
                 }else {
 
                     //卸载
-                    $actions->append(new Uninstall($actions->row['code']));
+                    $actions->append(new moduleUnInstall($actions->row['code']));
                 }
 
             }
@@ -138,9 +138,9 @@ class ModuleController extends Controller
     }
 
     //安装模块
-    public function install($module)
+    public function install()
     {
-
+        $module = request()->name;
         $module = \Module::findOrFail($module);
 
         if ($module->installed == 1) {
@@ -148,7 +148,7 @@ class ModuleController extends Controller
             $data = [
 
                 'status' => false,
-                'message'=> trans('core::module.install.failed', [$module->title]),
+                'message'=> trans('core::module.install.failed'),
             ];
 
 
@@ -167,8 +167,9 @@ class ModuleController extends Controller
     }
 
     //卸载模块
-    public function uninstall($module)
+    public function uninstall()
     {
+        $module = request()->name;
 
         if ($module == 'Core') {
 
@@ -187,7 +188,7 @@ class ModuleController extends Controller
                 $data = [
 
                     'status' => false,
-                    'message'=> trans('core::uninstall.failed', [$module->title]),
+                    'message'=> trans('core::uninstall.failed'),
                 ];
 
 

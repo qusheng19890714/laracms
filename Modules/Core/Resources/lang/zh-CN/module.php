@@ -17,17 +17,17 @@ return [
 
     'install'                => '安装',
     'installed'              => '安装成功',
-    'install.failed'         => ' [ :0 ] 安装失败',
+    'install.failed'         => '安装失败',
 
     'uninstall'              => '卸载',
     'uninstalled'            => '卸载成功',
-    'install.confirm'        => '您确定要安装 [ :0 ] 吗？',
-    'uninstall.confirm'      => '您确定要卸载 [ :0 ] 吗？',
-    'uninstall.failed'       => ' [ :0 ] 卸载失败',
+    'install.confirm'        => '您确定要安装该模块吗？',
+    'uninstall.confirm'      => '您确定要卸载该模块吗？',
+    'uninstall.failed'       => '卸载失败',
 
     'delete'                 => '删除',
-    'delete.confirm'         => '您确定要删除 [ :0 ] 吗？删除后不可恢复',
-    'delete.failed'          => ' [ :0 ] 删除失败',
+    'delete.confirm'         => '您确定要删除该模块吗？删除后不可恢复',
+    'delete.failed'          => '删除失败',
 
     'publish'                => '发布资源',
     'publish.success'        => '发布成功',
