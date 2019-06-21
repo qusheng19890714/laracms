@@ -5,10 +5,39 @@ namespace Modules\Core\Traits;
 use File;
 use Artisan;
 use Module;
+use Modules\Core\Entitties\Config;
 
 
 trait ModuleConfig
 {
+
+    /**
+     * 写入config
+     *
+     * @param  [type] $namespace [description]
+     * @param  array  $config    [description]
+     * @return [type]            [description]
+     */
+    private function config($module, array $config)
+    {
+        /*
+        // 获取当前配置，过滤掉当前模块配置中不存在的项
+        $configOriginal = [];
+
+        $configFilePath = Module::getModulePath($module).'/config.php';
+
+        if (File::exists($configFilePath)) {
+            $configOriginal = include($configFilePath);
+        }
+
+        $config = array_only($config, array_keys($configOriginal));
+        */
+
+
+        Config::set($module, $config);
+
+        return true;
+    }
 
     /**
      * 设置ENV

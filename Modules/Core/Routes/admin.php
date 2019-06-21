@@ -21,6 +21,9 @@ $router->group(['prefix' =>'core', 'module'=>'core', 'middleware'=>config('admin
     //修改环境配置
     $router->post('config/safe', 'ConfigController@safeStore')->name('core.config.safe.store');
 
+    //修改网站信息
+    $router->post('config/site', 'ConfigController@siteStore')->name('core.config.site.store');
+
     //编辑器上传图片
     $router->post('config/upload', 'ConfigController@upload')->name('core.upload.store');
 
